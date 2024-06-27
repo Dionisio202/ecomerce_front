@@ -17,8 +17,7 @@
         android:theme="@style/Theme.Ecomerce"
         tools:targetApi="31">
 
-        <activity android:name=".ui.manage.ManageCategoriesActivity" />
-        <activity android:name=".ui.manage.ManageBrandsActivity" />
+
 
         <activity
             android:name=".EditProfileActivity"

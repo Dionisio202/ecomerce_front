@@ -21,8 +21,8 @@ data class CreateProductoRequest(
     val categoryId: Int?,
     @SerializedName("brand")
     val brandId: Int?,
-    val newCategory: Categoria?,
-    val newBrand: Marca?
+    val newCategory: Categoria? = null, // Añade valores por defecto null
+    val newBrand: Marca? = null
 )
 
 
