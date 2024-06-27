@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+
+    <style name="Base.Theme.Ecomerce" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/gold_color</item>
+
+    </style>
+
+    <style name="Theme.Ecomerce" parent="Base.Theme.Ecomerce" />
+    <style name="CustomOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/gold_color</item>
+        <item name="startIconTint">@color/gold_color</item>
+        <item name="endIconTint">@color/gold_color</item>
+    </style>
+    <style name="Theme.Ecomerce.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Ecomerce.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Ecomerce.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
