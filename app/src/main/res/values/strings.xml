@@ -8,8 +8,8 @@
     <string name="action_settings">Configuraciones</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_gallery">Carrito</string>
+    <string name="menu_slideshow">Compras</string>
     <string name="action_logout">LogOut</string>
 
 </resources>

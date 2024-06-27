@@ -111,6 +111,7 @@ class MainActivity : AppCompatActivity() {
                     with(sharedPreferences.edit()) {
                         putInt("user_id", userProfile.id)
                         apply()
+                        println("################User ID: ${userProfile.id}")
                     }
                 } catch (e: Exception) {
                     // Handle error
@@ -118,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun adjustMenuForUserRole(navView: NavigationView) {
         val sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE)
@@ -133,8 +135,8 @@ class MainActivity : AppCompatActivity() {
             menu.add(0, R.id.nav_add, 3, "Agregar").setIcon(R.drawable.agregar)
         } else {
             menu.add(0, R.id.nav_home, 0, "Home").setIcon(R.drawable.home)
-            menu.add(0, R.id.nav_gallery, 1, "Gallery").setIcon(R.drawable.ic_menu_gallery)
-            menu.add(0, R.id.nav_slideshow, 2, "Slideshow").setIcon(R.drawable.ic_menu_slideshow)
+            menu.add(0, R.id.nav_gallery, 1, "Carrito").setIcon(R.drawable.ic_menu_gallery)
+            menu.add(0, R.id.nav_slideshow, 2, "Compras").setIcon(R.drawable.ic_menu_slideshow)
         }
     }
 

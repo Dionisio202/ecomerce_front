@@ -36,4 +36,44 @@ data class ProductoCRUD(
     val category: Categoria,
     val brand: Marca
 )
+data class CreateCarritoRequest(
+    val cliente: Int
+)
+
+data class CreateDetalleCarritoCompraDto(
+    val carrito: Int,
+    val producto: Int,
+    val quantity: Int,
+    val unit_price: Double
+)
+data class DetalleCarritoCompra(
+    @SerializedName("detail_id")
+    val detailId: Int,
+    @SerializedName("quantity")
+    val quantity: Int,
+    @SerializedName("unit_price")
+    val unitPrice: Double
+)
+data class CarritoCompra(
+    @SerializedName("cart_id")
+    val cartId: Int,
+    @SerializedName("detalles")
+    val detalles: List<DetalleCarritoCompra> = emptyList()
+)
+data class User(
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("email")
+    val email: String,
+    @SerializedName("password")
+    val password: String,
+    @SerializedName("role")
+    val role: String,
+    @SerializedName("address")
+    val address: String,
+    @SerializedName("carritos")
+    val carritos: List<CarritoCompra> = emptyList()
+)
 
