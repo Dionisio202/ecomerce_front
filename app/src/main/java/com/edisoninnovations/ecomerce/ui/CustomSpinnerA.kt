@@ -11,7 +11,7 @@ import com.edisoninnovations.ecomerce.model.Categoria
 import com.edisoninnovations.ecomerce.model.Marca
 import com.edisoninnovations.ecomerce.model.Producto
 
-class CustomSpinnerAdapter<T>(
+class CustomSpinnerA<T>(
     context: Context,
     private val items: List<T>
 ) : ArrayAdapter<T>(context, android.R.layout.simple_spinner_item, items) {

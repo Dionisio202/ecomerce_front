@@ -48,12 +48,14 @@ interface ApiService {
     @GET("categorias")
     suspend fun getCategories(): List<Categoria>
 
-    @POST("categorias")
-    suspend fun addCategory(@Body category: Categoria): Categoria
 
     @GET("marcas")
     suspend fun getBrands(): List<Marca>
 
-    @POST("marcas")
-    suspend fun addBrand(@Body brand: Marca): Marca
+    @PATCH("productos/{id}")
+    suspend fun patchProduct(
+        @Path("id") id: Int,
+        @Body producto: CreateProductoRequest
+    ): ProductoCRUD
+
 }
