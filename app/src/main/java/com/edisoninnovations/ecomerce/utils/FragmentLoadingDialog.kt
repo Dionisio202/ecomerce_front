@@ -11,6 +11,10 @@ class FragmentLoadingDialog(val mActivity: Activity) {
     private lateinit var isDialog: AlertDialog
     private var handler: Handler? = null
     private var runnable: Runnable? = null
+    private var minDurationHandler: Handler? = null
+    private var minDurationRunnable: Runnable? = null
+    private var minDurationReached = false
+    private var isDismissRequested = false
 
     fun startLoading() {
         /**set View*/
@@ -23,6 +27,8 @@ class FragmentLoadingDialog(val mActivity: Activity) {
         isDialog = builder.create()
         isDialog.show()
 
+        minDurationReached = false
+        isDismissRequested = false
 
         handler = Handler(Looper.getMainLooper())
         runnable = Runnable {
@@ -32,13 +38,27 @@ class FragmentLoadingDialog(val mActivity: Activity) {
             }
         }
         handler?.postDelayed(runnable!!, 20000)
+
+        minDurationHandler = Handler(Looper.getMainLooper())
+        minDurationRunnable = Runnable {
+            minDurationReached = true
+            if (isDismissRequested) {
+                isDismiss()
+            }
+        }
+        minDurationHandler?.postDelayed(minDurationRunnable!!, 2000)
     }
 
     fun isDismiss() {
-        if (::isDialog.isInitialized && isDialog.isShowing) {
-            isDialog.dismiss()
+        if (minDurationReached) {
+            if (::isDialog.isInitialized && isDialog.isShowing) {
+                isDialog.dismiss()
+            }
+            handler?.removeCallbacks(runnable!!)
+            minDurationHandler?.removeCallbacks(minDurationRunnable!!)
+        } else {
+            isDismissRequested = true
         }
-        handler?.removeCallbacks(runnable!!)
     }
 
     private fun showToast(message: String) {

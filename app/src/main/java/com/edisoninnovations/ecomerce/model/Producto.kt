@@ -1,10 +1,11 @@
 package com.edisoninnovations.ecomerce.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Producto(
-    var product_id: Int,
-    var name: String,
-    var price: String,
-    var stock: Int,
-    var accounts: List<Any> = emptyList(),
-    var detalleCarritoPedido: List<Any> = emptyList()
+    @SerializedName("product_id")
+    val productId: Int = 0,
+    val name: String,
+    val price: Double,
+    val stock: Int
 )

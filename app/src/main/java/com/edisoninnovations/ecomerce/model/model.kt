@@ -5,13 +5,14 @@ import com.google.gson.annotations.SerializedName
 data class Categoria(
     @SerializedName("category_id")
     val categoryId: Int = 0,
-    val name: String
+    val name: String,
+    val productos: List<Producto>? = emptyList()
 )
-
 data class Marca(
     @SerializedName("brand_id")
     val brandId: Int = 0,
-    val name: String
+    val name: String,
+    val productos: List<Producto>? = emptyList()
 )
 data class CreateProductoRequest(
     val name: String,
