@@ -1,5 +1,7 @@
 package com.edisoninnovations.ecomerce.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class Categoria(
@@ -46,14 +48,7 @@ data class CreateDetalleCarritoCompraDto(
     val quantity: Int,
     val unit_price: Double
 )
-data class DetalleCarritoCompra(
-    @SerializedName("detail_id")
-    val detailId: Int,
-    @SerializedName("quantity")
-    val quantity: Int,
-    @SerializedName("unit_price")
-    val unitPrice: Double
-)
+
 data class CarritoCompra(
     @SerializedName("cart_id")
     val cartId: Int,
@@ -77,3 +72,39 @@ data class User(
     val carritos: List<CarritoCompra> = emptyList()
 )
 
+data class DetalleCarritoCompra(
+    @SerializedName("detail_id")
+    val detailId: Int,
+    @SerializedName("quantity")
+    val quantity: Int,
+    @SerializedName("unit_price")
+    val unitPrice: Double,
+    @SerializedName("producto")
+    val producto: Int // Add this field
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readDouble(),
+        parcel.readInt() // Add this line
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(detailId)
+        parcel.writeInt(quantity)
+        parcel.writeDouble(unitPrice)
+        parcel.writeInt(producto) // Add this line
+    }
+
+    override fun describeContents(): Int = 0
+
+    companion object CREATOR : Parcelable.Creator<DetalleCarritoCompra> {
+        override fun createFromParcel(parcel: Parcel): DetalleCarritoCompra {
+            return DetalleCarritoCompra(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DetalleCarritoCompra?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

@@ -5,10 +5,14 @@ import com.edisoninnovations.ecomerce.model.CarritoCompra
 import com.edisoninnovations.ecomerce.model.Categoria
 import com.edisoninnovations.ecomerce.model.CreateCarritoRequest
 import com.edisoninnovations.ecomerce.model.CreateDetalleCarritoCompraDto
+import com.edisoninnovations.ecomerce.model.CreateDetallePedidoDto
+import com.edisoninnovations.ecomerce.model.CreatePedidoDto
 import com.edisoninnovations.ecomerce.model.CreateProductoRequest
 import com.edisoninnovations.ecomerce.model.DetalleCarritoCompra
+import com.edisoninnovations.ecomerce.model.DetallePedido
 import com.edisoninnovations.ecomerce.model.LoginRequest
 import com.edisoninnovations.ecomerce.model.Marca
+import com.edisoninnovations.ecomerce.model.Pedido
 import com.edisoninnovations.ecomerce.model.Producto
 import com.edisoninnovations.ecomerce.model.ProductoCRUD
 import com.edisoninnovations.ecomerce.model.RegisterRequest
@@ -79,4 +83,11 @@ interface ApiService {
 
     @DELETE("detalle-carrito-compras/{detailId}")
     suspend fun deleteCartItem(@Path("detailId") detailId: Int): Response<Unit>
+
+    @POST("pedidos")
+    suspend fun createPedido(@Body pedido: CreatePedidoDto): Pedido
+
+    @POST("detalle-pedidos")
+    suspend fun createDetallePedido(@Body detallePedido: CreateDetallePedidoDto): Response<DetallePedido>
+
 }

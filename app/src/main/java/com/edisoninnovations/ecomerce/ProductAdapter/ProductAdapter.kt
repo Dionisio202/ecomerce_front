@@ -73,7 +73,7 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(context, "Failed to add to cart", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, " Added to cart", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

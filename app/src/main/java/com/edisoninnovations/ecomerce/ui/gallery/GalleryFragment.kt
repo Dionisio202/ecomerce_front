@@ -1,6 +1,7 @@
 package com.edisoninnovations.ecomerce.ui.gallery
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.edisoninnovations.ecomerce.OrderActivity
 import com.edisoninnovations.ecomerce.adapter.CartAdapter
 import com.edisoninnovations.ecomerce.databinding.FragmentGalleryBinding
 import com.edisoninnovations.ecomerce.model.DetalleCarritoCompra
@@ -96,7 +98,11 @@ class GalleryFragment : Fragment() {
     }
 
     private fun onPayClick(cartItem: DetalleCarritoCompra) {
-        // Aquí implementa la lógica para pagar el producto
-        Toast.makeText(context, "Pagar producto: ${cartItem.detailId}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, OrderActivity::class.java).apply {
+            putExtra("userId", userId)
+            putExtra("cartItem", cartItem)
+        }
+        startActivity(intent)
     }
+
 }
