@@ -35,9 +35,7 @@ class GalleryFragment : Fragment() {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        cartAdapter = CartAdapter(requireContext(), cartItems) { cartItem ->
-            showProductDetails(cartItem)
-        }
+        cartAdapter = CartAdapter(requireContext(), cartItems, ::getProductDetailsByDetailId, ::onDeleteClick, ::onPayClick)
         binding.recyclerViewCart.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewCart.adapter = cartAdapter
 
@@ -68,23 +66,6 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    private fun showProductDetails(cartItem: DetalleCarritoCompra) {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val productDetails = getProductDetailsByDetailId(cartItem.detailId)
-                if (productDetails != null) {
-                    Toast.makeText(
-                        context,
-                        "Product: ${productDetails.name}, Quantity: ${cartItem.quantity}",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(context, "Failed to load product details", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     private suspend fun getProductDetailsByDetailId(detailId: Int): Producto? {
         val products = RetrofitClient.instance.getProducts()
         products.forEach { product ->
@@ -93,5 +74,29 @@ class GalleryFragment : Fragment() {
             }
         }
         return null
+    }
+
+    private fun onDeleteClick(cartItem: DetalleCarritoCompra) {
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val response = RetrofitClient.instance.deleteCartItem(cartItem.detailId)
+                if (response.isSuccessful) {
+                    val position = cartItems.indexOf(cartItem)
+                    if (position != -1) {
+                        cartAdapter.removeItem(position)
+                        Toast.makeText(context, "Producto eliminado del carrito", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "Error al eliminar el producto", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(context, "Error al eliminar el producto", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun onPayClick(cartItem: DetalleCarritoCompra) {
+        // Aquí implementa la lógica para pagar el producto
+        Toast.makeText(context, "Pagar producto: ${cartItem.detailId}", Toast.LENGTH_SHORT).show()
     }
 }

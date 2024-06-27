@@ -6,11 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.edisoninnovations.ecomerce.databinding.ItemCartBinding
 import com.edisoninnovations.ecomerce.model.DetalleCarritoCompra
+import com.edisoninnovations.ecomerce.model.Producto
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CartAdapter(
     private val context: Context,
-    private val cartItems: List<DetalleCarritoCompra>,
-    private val onDetailClick: (DetalleCarritoCompra) -> Unit
+    private val cartItems: MutableList<DetalleCarritoCompra>,
+    private val getProductDetailsByDetailId: suspend (Int) -> Producto?,
+    private val onDeleteClick: (DetalleCarritoCompra) -> Unit,
+    private val onPayClick: (DetalleCarritoCompra) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -26,13 +32,26 @@ class CartAdapter(
 
     inner class CartViewHolder(private val binding: ItemCartBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(cartItem: DetalleCarritoCompra) {
-            binding.txtProductName.text = "Detalle de Compra #${cartItem.detailId}"
-            binding.txtProductPrice.text = "Price: ${cartItem.unitPrice}"
-            binding.txtProductQuantity.text = "Quantity: ${cartItem.quantity}"
+            CoroutineScope(Dispatchers.Main).launch {
+                val product = getProductDetailsByDetailId(cartItem.detailId)
+                binding.txtProductName.text = product?.name ?: "Unknown Product"
+                binding.txtProductPrice.text = "Price: ${cartItem.unitPrice}"
+                binding.txtProductQuantity.text = "Quantity: ${cartItem.quantity}"
+            }
 
-            itemView.setOnClickListener {
-                onDetailClick(cartItem)
+            binding.btnDelete.setOnClickListener {
+                onDeleteClick(cartItem)
+            }
+
+            binding.btnPay.setOnClickListener {
+                onPayClick(cartItem)
             }
         }
+    }
+
+    fun removeItem(position: Int) {
+        cartItems.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, itemCount)
     }
 }

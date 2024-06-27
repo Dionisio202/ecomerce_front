@@ -135,8 +135,8 @@ class MainActivity : AppCompatActivity() {
             menu.add(0, R.id.nav_add, 3, "Agregar").setIcon(R.drawable.agregar)
         } else {
             menu.add(0, R.id.nav_home, 0, "Home").setIcon(R.drawable.home)
-            menu.add(0, R.id.nav_gallery, 1, "Carrito").setIcon(R.drawable.ic_menu_gallery)
-            menu.add(0, R.id.nav_slideshow, 2, "Compras").setIcon(R.drawable.ic_menu_slideshow)
+            menu.add(0, R.id.nav_gallery, 1, "Carrito").setIcon(R.drawable.carrito_large)
+            menu.add(0, R.id.nav_slideshow, 2, "Compras").setIcon(R.drawable.compras)
         }
     }
 

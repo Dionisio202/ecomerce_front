@@ -15,6 +15,7 @@ import com.edisoninnovations.ecomerce.model.RegisterRequest
 import com.edisoninnovations.ecomerce.model.UpdateUserProfile
 import com.edisoninnovations.ecomerce.model.User
 import com.edisoninnovations.ecomerce.model.UserProfile
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -75,4 +76,7 @@ interface ApiService {
     suspend fun getUserById(@Path("userId") userId: Int): User
     @GET("productos/{productId}")
     suspend fun getProductById(@Path("productId") productId: Int): Producto
+
+    @DELETE("detalle-carrito-compras/{detailId}")
+    suspend fun deleteCartItem(@Path("detailId") detailId: Int): Response<Unit>
 }

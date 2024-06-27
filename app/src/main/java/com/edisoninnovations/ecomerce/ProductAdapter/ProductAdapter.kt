@@ -63,6 +63,9 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
                             unit_price = product.price
                         )
                         RetrofitClient.instance.addCartDetail(detailRequest)
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show()
+                        }
                     } else {
                         withContext(Dispatchers.Main) {
                             Toast.makeText(context, "Failed to create or get cart", Toast.LENGTH_SHORT).show()
