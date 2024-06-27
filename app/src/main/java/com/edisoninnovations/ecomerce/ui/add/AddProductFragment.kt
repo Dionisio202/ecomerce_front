@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.edisoninnovations.ecomerce.R
 import com.edisoninnovations.ecomerce.model.Categoria
 import com.edisoninnovations.ecomerce.model.CreateProductoRequest
@@ -28,6 +29,7 @@ class AddProductFragment : Fragment() {
     private lateinit var brandSpinner: Spinner
     private lateinit var loadingDialog: FragmentLoadingDialog
     private lateinit var viewRoot: View
+    private var isCategoriesAndBrandsLoaded = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,6 +81,8 @@ class AddProductFragment : Fragment() {
             try {
                 RetrofitClient.instance.addProduct(newProductRequest).let {
                     loadingDialog.isDismiss() // Cierra el diálogo de carga
+                    findNavController().navigate(R.id.nav_home) // Navegar de regreso al HomeFragment
+
                     Toast.makeText(context, "Producto creado exitosamente", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
@@ -97,6 +101,8 @@ class AddProductFragment : Fragment() {
 
                 categorySpinner.adapter = CustomSpinnerAdapter(requireContext(), categories)
                 brandSpinner.adapter = CustomSpinnerAdapter(requireContext(), brands)
+                isCategoriesAndBrandsLoaded = true
+                validateForm() // Validar el formulario una vez que los datos estén cargados
                 loadingDialog.isDismiss() // Cierra el diálogo de carga
             } catch (e: Exception) {
                 loadingDialog.isDismiss() // Asegura que el diálogo se cierra en caso de error
@@ -105,25 +111,27 @@ class AddProductFragment : Fragment() {
         }
     }
 
+    private fun validateForm() {
+        val productName = viewRoot.findViewById<EditText>(R.id.editTextProductName).text.toString()
+        val productPrice = viewRoot.findViewById<EditText>(R.id.editTextProductPrice).text.toString()
+        val productStock = viewRoot.findViewById<EditText>(R.id.editTextProductStock).text.toString()
+
+        val isProductNameValid = productName.isNotEmpty()
+        val isProductPriceValid = productPrice.isNotEmpty() && productPrice.toDoubleOrNull()?.let { it > 0 } == true
+        val isProductStockValid = productStock.isNotEmpty() && productStock.toIntOrNull()?.let { it > 0 } == true
+
+        viewRoot.findViewById<Button>(R.id.buttonAddProduct).isEnabled = isProductNameValid && isProductPriceValid && isProductStockValid
+    }
+
     private val textWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable?) {
-            validateForm()
-        }
-
-        private fun validateForm() {
-            val productName = viewRoot.findViewById<EditText>(R.id.editTextProductName).text.toString()
-            val productPrice = viewRoot.findViewById<EditText>(R.id.editTextProductPrice).text.toString()
-            val productStock = viewRoot.findViewById<EditText>(R.id.editTextProductStock).text.toString()
-
-            val isProductNameValid = productName.isNotEmpty()
-            val isProductPriceValid = productPrice.isNotEmpty() && productPrice.toDoubleOrNull()?.let { it > 0 } == true
-            val isProductStockValid = productStock.isNotEmpty() && productStock.toIntOrNull()?.let { it > 0 } == true
-
-            viewRoot.findViewById<Button>(R.id.buttonAddProduct).isEnabled = isProductNameValid && isProductPriceValid && isProductStockValid
+            if (isCategoriesAndBrandsLoaded) {
+                validateForm()
+            }
         }
     }
 }

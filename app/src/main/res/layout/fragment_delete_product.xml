@@ -7,12 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.delete.DeleteProductFragment">
 
-    <EditText
-        android:id="@+id/editTextProductId"
+    <Spinner
+        android:id="@+id/productSpinner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Product ID"
-        android:inputType="number"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete Product"
-        app:layout_constraintTop_toBottomOf="@id/editTextProductId"
+        app:layout_constraintTop_toBottomOf="@id/productSpinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"/>
