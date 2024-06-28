@@ -16,7 +16,7 @@ class CartAdapter(
     private val cartItems: MutableList<DetalleCarritoCompra>,
     private val getProductDetailsByDetailId: suspend (Int) -> Producto?,
     private val onDeleteClick: (DetalleCarritoCompra) -> Unit,
-    private val onPayClick: (DetalleCarritoCompra) -> Unit
+    private val onPayClick: (DetalleCarritoCompra, Producto?) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -37,14 +37,14 @@ class CartAdapter(
                 binding.txtProductName.text = product?.name ?: "Unknown Product"
                 binding.txtProductPrice.text = "Price: ${cartItem.unitPrice}"
                 binding.txtProductQuantity.text = "Quantity: ${cartItem.quantity}"
-            }
 
-            binding.btnDelete.setOnClickListener {
-                onDeleteClick(cartItem)
-            }
+                binding.btnDelete.setOnClickListener {
+                    onDeleteClick(cartItem)
+                }
 
-            binding.btnPay.setOnClickListener {
-                onPayClick(cartItem)
+                binding.btnPay.setOnClickListener {
+                    onPayClick(cartItem, product)
+                }
             }
         }
     }

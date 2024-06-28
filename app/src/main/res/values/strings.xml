@@ -11,5 +11,20 @@
     <string name="menu_gallery">Carrito</string>
     <string name="menu_slideshow">Compras</string>
     <string name="action_logout">LogOut</string>
+    <!-- Estado Options -->
+    <string-array name="status_options">
+        <item>Seleccione un estado</item>
+        <item>Pagado</item>
+        <item>Pendiente</item>
+        <item>Cancelado</item>
+    </string-array>
 
+    <!-- Payment Method Options -->
+    <string-array name="payment_methods">
+        <item>Seleccione un método de pago</item>
+        <item>Tarjeta de crédito</item>
+        <item>PayPal</item>
+        <item>Transferencia bancaria</item>
+        <item>Efectivo</item>
+    </string-array>
 </resources>

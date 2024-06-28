@@ -3,59 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    >
+    android:padding="16dp">
 
     <!-- Pedido Fields -->
-    <EditText
-        android:id="@+id/edtCliente"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Cliente" />
-
     <EditText
         android:id="@+id/edtOrderDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Fecha de Pedido" />
+        android:hint="Fecha de Pedido"
+        android:focusable="false"
+        android:clickable="true" />
 
-    <EditText
-        android:id="@+id/edtStatus"
+    <Spinner
+        android:id="@+id/spinnerStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Estado" />
+        android:hint="Estado"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spinner_border"/>
 
-    <EditText
-        android:id="@+id/edtPaymentMethod"
+    <Spinner
+        android:id="@+id/spinnerPaymentMethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Método de Pago" />
-
-    <EditText
-        android:id="@+id/edtTotalAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Monto Total" />
-
-    <EditText
-        android:id="@+id/edtDiscountAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Monto de Descuento" />
-
-    <EditText
-        android:id="@+id/edtTaxAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Monto de Impuestos" />
+        android:hint="Método de Pago"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spinner_border"/>
 
     <!-- DetallePedido Fields -->
-    <EditText
-        android:id="@+id/edtProducto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Producto" />
-
     <EditText
         android:id="@+id/edtQuantity"
         android:layout_width="match_parent"
@@ -67,18 +42,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Precio" />
-
-    <EditText
-        android:id="@+id/edtDiscount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Descuento" />
-
-    <EditText
-        android:id="@+id/edtTax"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Impuesto" />
 
     <Button
         android:id="@+id/btnRegisterPayment"

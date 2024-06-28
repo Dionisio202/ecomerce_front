@@ -68,8 +68,10 @@ data class User(
     val role: String,
     @SerializedName("address")
     val address: String,
+    @SerializedName("pedidos")
+    val pedidos: List<Pedido>,
     @SerializedName("carritos")
-    val carritos: List<CarritoCompra> = emptyList()
+    val carritos: List<CarritoCompra>
 )
 
 data class DetalleCarritoCompra(
@@ -80,20 +82,20 @@ data class DetalleCarritoCompra(
     @SerializedName("unit_price")
     val unitPrice: Double,
     @SerializedName("producto")
-    val producto: Int // Add this field
+    val producto: Int // Este es el ID del producto
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readDouble(),
-        parcel.readInt() // Add this line
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(detailId)
         parcel.writeInt(quantity)
         parcel.writeDouble(unitPrice)
-        parcel.writeInt(producto) // Add this line
+        parcel.writeInt(producto)
     }
 
     override fun describeContents(): Int = 0

@@ -97,12 +97,14 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    private fun onPayClick(cartItem: DetalleCarritoCompra) {
+    private fun onPayClick(cartItem: DetalleCarritoCompra, product: Producto?) {
+        println("ID del producto seleccionado: ${product?.productId}")
         val intent = Intent(context, OrderActivity::class.java).apply {
             putExtra("userId", userId)
+            putExtra("productId", product?.productId)
             putExtra("cartItem", cartItem)
         }
         startActivity(intent)
     }
-
 }
+

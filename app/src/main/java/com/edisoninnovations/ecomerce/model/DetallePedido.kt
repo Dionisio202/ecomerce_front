@@ -6,9 +6,9 @@ data class DetallePedido(
     @SerializedName("order_detail_id")
     val orderDetailId: Int,
     @SerializedName("pedido")
-    val pedido: Int,
+    val pedido: Pedido, // Aquí es donde ocurre el problema, asegúrate de que sea un objeto Pedido
     @SerializedName("producto")
-    val producto: Int,
+    val producto: Producto,
     @SerializedName("quantity")
     val quantity: Int,
     @SerializedName("price")
@@ -18,3 +18,4 @@ data class DetallePedido(
     @SerializedName("tax_amount")
     val taxAmount: Double
 )
+
