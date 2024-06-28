@@ -1,15 +1,26 @@
 package com.edisoninnovations.ecomerce.request
 
 import com.edisoninnovations.ecomerce.model.AuthResponse
+import com.edisoninnovations.ecomerce.model.CarritoCompra
 import com.edisoninnovations.ecomerce.model.Categoria
+import com.edisoninnovations.ecomerce.model.CreateCarritoRequest
+import com.edisoninnovations.ecomerce.model.CreateDetalleCarritoCompraDto
+import com.edisoninnovations.ecomerce.model.CreateDetallePedidoDto
+import com.edisoninnovations.ecomerce.model.CreatePedidoDto
 import com.edisoninnovations.ecomerce.model.CreateProductoRequest
+import com.edisoninnovations.ecomerce.model.DetalleCarritoCompra
+import com.edisoninnovations.ecomerce.model.DetallePedido
+import com.edisoninnovations.ecomerce.model.EditProductoRequest
 import com.edisoninnovations.ecomerce.model.LoginRequest
 import com.edisoninnovations.ecomerce.model.Marca
+import com.edisoninnovations.ecomerce.model.Pedido
 import com.edisoninnovations.ecomerce.model.Producto
 import com.edisoninnovations.ecomerce.model.ProductoCRUD
 import com.edisoninnovations.ecomerce.model.RegisterRequest
 import com.edisoninnovations.ecomerce.model.UpdateUserProfile
+import com.edisoninnovations.ecomerce.model.User
 import com.edisoninnovations.ecomerce.model.UserProfile
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -48,12 +59,42 @@ interface ApiService {
     @GET("categorias")
     suspend fun getCategories(): List<Categoria>
 
-    @POST("categorias")
-    suspend fun addCategory(@Body category: Categoria): Categoria
 
     @GET("marcas")
     suspend fun getBrands(): List<Marca>
 
-    @POST("marcas")
-    suspend fun addBrand(@Body brand: Marca): Marca
+    @PATCH("productos/{id}")
+    suspend fun patchProduct(
+        @Path("id") id: Int,
+        @Body producto: CreateProductoRequest
+    ): ProductoCRUD
+
+    @PATCH("productos/{id}")
+    suspend fun patchProductEdit(
+        @Path("id") id: Int,
+        @Body producto: EditProductoRequest
+    ): ProductoCRUD
+    @POST("carrito-compras")
+    suspend fun addCart(@Body carrito: CreateCarritoRequest): CarritoCompra
+
+    @POST("detalle-carrito-compras")
+    suspend fun addCartDetail(@Body detail: CreateDetalleCarritoCompraDto): DetalleCarritoCompra
+
+
+    @GET("carrito-compras/{cartId}")
+    suspend fun getCartItems(@Path("cartId") cartId: Int): CarritoCompra
+    @GET("users/{userId}")
+    suspend fun getUserById(@Path("userId") userId: Int): User
+    @GET("productos/{productId}")
+    suspend fun getProductById(@Path("productId") productId: Int): Producto
+
+    @DELETE("detalle-carrito-compras/{detailId}")
+    suspend fun deleteCartItem(@Path("detailId") detailId: Int): Response<Unit>
+
+    @POST("pedidos")
+    suspend fun createPedido(@Body pedido: CreatePedidoDto): Pedido
+
+    @POST("detalle-pedidos")
+    suspend fun createDetallePedido(@Body detallePedido: CreateDetallePedidoDto): Response<DetallePedido>
+
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Pedido Fields -->
+    <EditText
+        android:id="@+id/edtOrderDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha de Pedido"
+        android:focusable="false"
+        android:clickable="true" />
+
+    <Spinner
+        android:id="@+id/spinnerStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Estado"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spinner_border"/>
+
+    <Spinner
+        android:id="@+id/spinnerPaymentMethod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Método de Pago"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/spinner_border"/>
+
+    <!-- DetallePedido Fields -->
+    <EditText
+        android:id="@+id/edtQuantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Cantidad" />
+
+    <EditText
+        android:id="@+id/edtPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Precio" />
+
+    <Button
+        android:id="@+id/btnRegisterPayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrar Pago" />
+
+</LinearLayout>

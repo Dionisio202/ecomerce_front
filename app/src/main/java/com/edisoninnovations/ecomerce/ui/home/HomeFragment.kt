@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.appcompat.widget.SearchView
-import com.edisoninnovations.ecomerce.ProductAdapter.ProductAdapter
+import com.edisoninnovations.ecomerce.adapter.ProductAdapter
 import com.edisoninnovations.ecomerce.databinding.FragmentHomeBinding
 import com.edisoninnovations.ecomerce.model.Producto
 import com.edisoninnovations.ecomerce.request.RetrofitClient
