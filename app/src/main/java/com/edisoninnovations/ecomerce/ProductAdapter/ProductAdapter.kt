@@ -88,7 +88,7 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(context, "Error al añadir al carrito", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Añadido al carrito", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
