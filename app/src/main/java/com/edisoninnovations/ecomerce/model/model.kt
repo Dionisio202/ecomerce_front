@@ -28,7 +28,12 @@ data class CreateProductoRequest(
     val newBrand: Marca? = null
 )
 
+data class EditProductoRequest(
+    val name: String,
+    val price: Double,
+    val stock: Int,
 
+)
 data class ProductoCRUD(
     @SerializedName("product_id")
     val productId: Int = 0,

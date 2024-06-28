@@ -10,6 +10,7 @@ import com.edisoninnovations.ecomerce.model.CreatePedidoDto
 import com.edisoninnovations.ecomerce.model.CreateProductoRequest
 import com.edisoninnovations.ecomerce.model.DetalleCarritoCompra
 import com.edisoninnovations.ecomerce.model.DetallePedido
+import com.edisoninnovations.ecomerce.model.EditProductoRequest
 import com.edisoninnovations.ecomerce.model.LoginRequest
 import com.edisoninnovations.ecomerce.model.Marca
 import com.edisoninnovations.ecomerce.model.Pedido
@@ -66,6 +67,12 @@ interface ApiService {
     suspend fun patchProduct(
         @Path("id") id: Int,
         @Body producto: CreateProductoRequest
+    ): ProductoCRUD
+
+    @PATCH("productos/{id}")
+    suspend fun patchProductEdit(
+        @Path("id") id: Int,
+        @Body producto: EditProductoRequest
     ): ProductoCRUD
     @POST("carrito-compras")
     suspend fun addCart(@Body carrito: CreateCarritoRequest): CarritoCompra

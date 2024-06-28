@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.edisoninnovations.ecomerce.databinding.ItemProductBinding
 import com.edisoninnovations.ecomerce.model.CreateCarritoRequest
@@ -45,8 +46,22 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
             } else {
                 binding.imageView2.visibility = View.VISIBLE
                 binding.imageView2.setOnClickListener {
-                    addToCart(product)
+                    if (product.stock > 0) {
+                        showConfirmationDialog(product)
+                    } else {
+                        Toast.makeText(context, "Stock insuficiente. No se puede añadir al carrito.", Toast.LENGTH_SHORT).show()
+                    }
                 }
+            }
+        }
+
+        private fun showConfirmationDialog(product: Producto) {
+            AlertDialog.Builder(context).apply {
+                setTitle("Confirmación")
+                setMessage("¿Desea añadir ${product.name} al carrito?")
+                setPositiveButton("Sí") { _, _ -> addToCart(product) }
+                setNegativeButton("No", null)
+                show()
             }
         }
 
@@ -64,16 +79,16 @@ class ProductAdapter(private val context: Context, private val products: List<Pr
                         )
                         RetrofitClient.instance.addCartDetail(detailRequest)
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Añadido al carrito", Toast.LENGTH_SHORT).show()
                         }
                     } else {
                         withContext(Dispatchers.Main) {
-                            Toast.makeText(context, "Failed to create or get cart", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Error al crear o obtener el carrito", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(context, " Added to cart", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Error al añadir al carrito", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
